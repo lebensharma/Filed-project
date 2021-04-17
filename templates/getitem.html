@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block title %}
+{% if song_item %}
+{{song_item.name}} | {{song_item.type}} 
+{% elif pod_item %}
+{{pod_item.name}} | {{pod_item.type}} 
+{% elif aud_item %}
+{{aud_item.name}} | {{aud_item.type}} 
+{% endif %}
+{% endblock title %}
+
+
+
+
+{% block body %}
+<div class="container mt-2">
+    {% if song_item %}
+    <h3>
+        Song ID = {{song_item.id}}<br>
+        Song Name = {{song_item.name}}<br>
+        Song File = <audio controls>
+                        <source src="{{song_item.file.url}}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio><br>
+        Song Duration = {{song_item.duration}}<br>
+        Song Upload Date and Time = {{song_item.timeupload}}<br>
+    {% elif pod_item %}
+        Podcast ID = {{pod_item.id}}<br>
+        Podcast Name = {{pod_item.name}}<br>
+        Podcast File = <audio controls>
+                        <source src="{{pod_item.file.url}}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio><br>
+        Podcast Duration = {{pod_item.duration}}<br>
+        Podcast Host = {{pod_item.host}}<br>
+        Podcast Participants = {{pod_item.participants}}<br>
+        Podcast Upload Date and Time = {{pod_item.timeupload}}<br>
+
+    {% elif aud_item %}
+        Podcast ID = {{aud_item.id}}<br>
+        Podcast Title = {{aud_item.title}}<br>
+        Podcast File = <audio controls>
+                        <source src="{{aud_item.file.url}}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio><br>
+        Podcast Duration = {{aud_item.duration}}<br>
+        Podcast Author = {{aud_item.author}}<br>
+        Podcast Narrator = {{aud_item.narrator}}<br>
+        Podcast Upload Date and Time = {{aud_item.timeupload}}<br>
+    {% endif %}
+    </h3>
+</div>
+{% endblock body %}

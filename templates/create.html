@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Make entry to audio database</title>
+    {% comment %} {% load static %}
+    <script src="{% static 'javascript/index.js' %}"></script> {% endcomment %}
+</head>
+
+<body>
+
+    <div class="container my-4">
+        {% if songform %}
+        <h1>Create an entry : Song</h1>
+        <div id="song_form" class="mb-5">
+            <form action="{% url 'create' audioFileType='song' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{songform.song_name.id_for_label}}" class="form-label">Name</label>
+                    {{songform.song_name}}
+                </div> 
+                <div class="mb-3">
+                    <label for="{{songform.song_file.id_for_label}}" class="form-label">Upload song audio file</label>
+                    {{songform.song_file}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{songform.song_duration.id_for_label}}" class="form-label">Duration</label>
+                    {{songform.song_duration}}
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% elif podcastform %}
+        <h1>Create an entry : Podcast</h1>
+        <div id="pod_form" class="mb-5">
+            <form action="{% url 'create' audioFileType='podcast' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{podcastform.podcast_name.id_for_label}}" class="form-label">Name</label>
+                    {{podcastform.podcast_name}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{podcastform.podcast_file.id_for_label}}" class="form-label">Upload podcast audio file</label>
+                    {{podcastform.podcast_file}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{podcastform.podcast_duration.id_for_label}}" class="form-label">Duration</label>
+                    {{podcastform.podcast_duration}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{podcastform.podcast_host.id_for_label}}" class="form-label">Host of the podcast</label>
+                    {{podcastform.podcast_host}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{podcastform.podcast_participants.id_for_label}}" class="form-label">Podcast Participants</label>
+                    {{podcastform.podcast_participants}}
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% elif audiobookform %}
+        <h1>Create an entry : Audiobook</h1>
+        <div id="aud_form" class="mb-5">
+            <form action="{% url 'create' audioFileType='audiobook' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{audiobookform.audiobook_title.id_for_label}}" class="form-label">Title</label>
+                    {{audiobookform.audiobook_title}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{audiobookform.audiobook_file.id_for_label}}" class="form-label">Upload audiobook file</label>
+                    {{audiobookform.audiobook_file}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{audiobookform.audiobook_duration.id_for_label}}" class="form-label">Duration</label>
+                    {{audiobookform.audiobook_duration}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{audiobookform.audiobook_author.id_for_label}}r" class="form-label">Author</label>
+                    {{audiobookform.audiobook_author}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{audiobookform.audiobook_narrator.id_for_label}}" class="form-label">Narrator</label>
+                    {{audiobookform.audiobook_narrator}}
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        
+
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
