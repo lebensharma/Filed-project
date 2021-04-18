@@ -159,9 +159,18 @@ def update(request, audioFileType, audioFileID):
                 s_update.save(update_fields = ['name', 'file', 'duration'])
                 messages.success(request, '200 OK: Your song entry is updated.')
                 return redirect('home')
+                
             else:
-                messages.error(request, '500 internal server error')
-                return redirect('home')
+                s_file = request.POST.get('song_file')
+                if not s_file:
+                    s_update = Song.objects.get(id=audioFileID)
+                    sfile = Song.objects.get(id=audioFileID).file
+                    s_update.name = song_form.cleaned_data['song_name']
+                    s_update.file = sfile
+                    s_update.duration = audioFile(s_update.file)
+                    s_update.save(update_fields = ['name', 'file', 'duration'])
+                    messages.success(request, '200 OK: Your song entry is updated.')
+                    return redirect('home')
 
         elif audioFileType == 'podcast':
             podcast_form = Podcastform(request.POST, request.FILES)
@@ -177,8 +186,18 @@ def update(request, audioFileType, audioFileID):
                 messages.success(request, '200 OK: Your podcast entry is updated.')
                 return redirect('home')
             else:
-                messages.error(request, '500 internal server error')
-                return redirect('home')
+                p_file = request.POST.get('podcast_file')
+                if not p_file:
+                    p_update = Podcast.objects.get(id=audioFileID)
+                    pfile = Podcast.objects.get(id=audioFileID).file
+                    p_update.name = podcast_form.cleaned_data['podcast_name']
+                    p_update.file = pfile
+                    p_update.duration = audioFile(p_update.file)
+                    p_update.host = podcast_form.cleaned_data['podcast_host']
+                    p_update.participants = podcast_form.cleaned_data['podcast_participants']
+                    p_update.save(update_fields = ['name', 'file', 'duration', 'host', 'participants'])
+                    messages.success(request, '200 OK: Your podcast entry is updated.')
+                    return redirect('home')
 
         elif audioFileType == 'audiobook':
             audiobook_form = Audiobookform(request.POST, request.FILES)
@@ -194,8 +213,18 @@ def update(request, audioFileType, audioFileID):
                 messages.success(request, '200 OK: Your audiobook entry is updated.')
                 return redirect('home')
             else:
-                messages.error(request, '500 internal server error')
-                return redirect('home')
+                a_file = request.POST.get('audiobook_file')
+                if not a_file:
+                    a_update = Audiobook.objects.get(id=audioFileID)
+                    afile = Audiobook.objects.get(id=audioFileID).file
+                    a_update.title = audiobook_form.cleaned_data['audiobook_title']
+                    a_update.file = afile
+                    a_update.duration = audioFile(a_update.file)
+                    a_update.author = audiobook_form.cleaned_data['audiobook_author']
+                    a_update.narrator = audiobook_form.cleaned_data['audiobook_narrator']
+                    a_update.save(update_fields = ['title', 'file', 'duration', 'author', 'narrator'])
+                    messages.success(request, '200 OK: Your podcast entry is updated.')
+                    return redirect('home')
 
     else:
         if audioFileType == 'song':
