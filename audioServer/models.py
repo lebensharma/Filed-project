@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -21,7 +23,7 @@ class Podcast(models.Model):
     file = models.FileField(upload_to='podcasts')
     duration = models.CharField(max_length=50)
     host = models.TextField(max_length=100)
-    participants = models.CharField(max_length=500)
+    participants = models.CharField(max_length=1010)
     timeupload = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

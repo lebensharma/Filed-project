@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if song_item %}
+Update {{song_item.type}}
+{% elif pod_item %}
+Update {{pod_item.type}}
+{% elif aud_item %}
+Update {{aud_item.type}}
+{% endif %}
+{% endblock title %}
+
+
+{% block body %}
+<div class="container my-4">
+    {% if song_item %}
+    <h1>Update : Song : ID = {{song_item.id}}</h1>
+    <div id="song_form" class="mb-5">
+        <form action="{% url 'update' audioFileType=song_item.type audioFileID=song_item.id %}" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{song_form.song_name.id_for_label}}" class="form-label"><strong>Name</strong></label>
+                {{song_form.song_name}}
+            </div>
+            <div class="mb-3">
+                <label for="{{song_form.song_file.id_for_label}}" class="form-label"><strong>Upload song audio file</strong></label>
+                <br>Original File: <a href="{{song_item.file.url}}">{{song_item.file}}</a><br>
+                {{song_form.song_file}}
+                
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+    {% elif pod_item %}
+    <h1>Update : Podcast : ID = {{pod_item.id}}</h1>
+    <div id="pod_form" class="mb-5">
+        <form action="{% url 'update' audioFileType=pod_item.type audioFileID=pod_item.id %}" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{pod_form.podcast_name.id_for_label}}" class="form-label"><strong>Name</strong></label>
+                {{pod_form.podcast_name}}
+            </div>
+            <div class="mb-3">
+                <label for="{{pod_form.podcast_file.id_for_label}}" class="form-label"><strong>Upload podcast audio file</strong></label>
+                <br>Original File: <a href="{{pod_item.file.url}}">{{pod_item.file}}</a><br>
+                {{pod_form.podcast_file}}
+                
+            </div>
+            <div class="mb-3">
+                <label for="{{pod_form.podcast_host.id_for_label}}" class="form-label"><strong>Host</strong></label>
+                {{pod_form.podcast_host}}
+            </div>
+            <div class="mb-3">
+                <label for="{{pod_form.podcast_participants.id_for_label}}" class="form-label"><strong>Participants</strong></label>
+                {{pod_form.podcast_participants}}
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+    {% elif aud_item %}
+    <h1>Update : Audiobook : ID = {{aud_item.id}}</h1>
+    <div id="aud_form" class="mb-5">
+        <form action="{% url 'update' audioFileType=aud_item.type audioFileID=aud_item.id %}" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{aud_form.audiobook_title.id_for_label}}" class="form-label"><strong>Title</strong></label>
+                {{aud_form.audiobook_title}}
+            </div>
+            <div class="mb-3">
+                <label for="{{aud_form.audiobook_file.id_for_label}}" class="form-label"><strong>Upload audiobook audio file</strong></label>
+                <br>Original File: <a href="{{aud_item.file.url}}">{{aud_item.file}}</a><br>
+                {{aud_form.audiobook_file}}
+            </div>
+            <div class="mb-3">
+                <label for="{{aud_form.audiobook_author.id_for_label}}" class="form-label"><strong>Author</strong></label>
+                {{aud_form.audiobook_author}}
+            </div>
+            <div class="mb-3">
+                <label for="{{aud_form.audiobook_narrator.id_for_label}}" class="form-label"><strong>Narrator</strong></label>
+                {{aud_form.audiobook_narrator}}
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock body %}

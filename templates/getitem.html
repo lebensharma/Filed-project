@@ -5,11 +5,11 @@
 
 {% block title %}
 {% if song_item %}
-{{song_item.name}} | {{song_item.type}} 
+{{song_item.name}} | {{song_item.type}}
 {% elif pod_item %}
-{{pod_item.name}} | {{pod_item.type}} 
+{{pod_item.name}} | {{pod_item.type}}
 {% elif aud_item %}
-{{aud_item.name}} | {{aud_item.type}} 
+{{aud_item.name}} | {{aud_item.type}}
 {% endif %}
 {% endblock title %}
 
@@ -17,41 +17,119 @@
 
 
 {% block body %}
-<div class="container mt-2">
-    {% if song_item %}
-    <h3>
+<h3>
+    <div class="container mt-2">
+        {% if song_item %}
+
         Song ID = {{song_item.id}}<br>
         Song Name = {{song_item.name}}<br>
         Song File = <audio controls>
-                        <source src="{{song_item.file.url}}" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio><br>
-        Song Duration = {{song_item.duration}}<br>
+            <source src="{{song_item.file.url}}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio><br>
+        Song Duration = {{song_item.duration}}s<br>
         Song Upload Date and Time = {{song_item.timeupload}}<br>
-    {% elif pod_item %}
+        {% elif pod_item %}
         Podcast ID = {{pod_item.id}}<br>
         Podcast Name = {{pod_item.name}}<br>
         Podcast File = <audio controls>
-                        <source src="{{pod_item.file.url}}" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio><br>
-        Podcast Duration = {{pod_item.duration}}<br>
+            <source src="{{pod_item.file.url}}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio><br>
+        Podcast Duration = {{pod_item.duration}}s<br>
         Podcast Host = {{pod_item.host}}<br>
         Podcast Participants = {{pod_item.participants}}<br>
         Podcast Upload Date and Time = {{pod_item.timeupload}}<br>
 
-    {% elif aud_item %}
+        {% elif aud_item %}
         Podcast ID = {{aud_item.id}}<br>
         Podcast Title = {{aud_item.title}}<br>
         Podcast File = <audio controls>
-                        <source src="{{aud_item.file.url}}" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio><br>
-        Podcast Duration = {{aud_item.duration}}<br>
+            <source src="{{aud_item.file.url}}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio><br>
+        Podcast Duration = {{aud_item.duration}}s<br>
         Podcast Author = {{aud_item.author}}<br>
         Podcast Narrator = {{aud_item.narrator}}<br>
         Podcast Upload Date and Time = {{aud_item.timeupload}}<br>
-    {% endif %}
-    </h3>
-</div>
+        
+        {% elif song_item_list %}
+        <h5>
+        <div class="d-flex p-2 flex-row flex-wrap bd-highlight">
+            {% for song in song_item_list %}
+            <div class="card mb-5">
+                <div class="card-header">
+                    Song ID: {{song.id}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{song.name}}</li>
+                    <li class="list-group-item"><strong>File:</strong>
+                        <audio controls>
+                            <source src="{{song.file.url}}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </li>
+                    <li class="list-group-item"><strong>Duration:</strong> {{song.duration}}s</li>
+                    <li class="list-group-item"><strong>Song Upload Date and Time:</strong> {{song.timeupload}}</li>
+                </ul>
+            </div>
+            {% endfor %}
+        </h5>
+        </div>
+
+        {% elif pod_item_list %}
+        <h5>
+        <div class="d-flex p-2 flex-row flex-wrap bd-highlight">
+            {% for pod in pod_item_list %}
+            <div class="card mb-5">
+                <div class="card-header">
+                    Podcast ID: {{pod.id}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{pod.name}}</li>
+                    <li class="list-group-item"><strong>File:</strong>
+                        <audio controls>
+                            <source src="{{pod.file.url}}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </li>
+                    <li class="list-group-item"><strong>Duration:</strong> {{pod.duration}}s</li>
+                    <li class="list-group-item"><strong>Host:</strong> {{pod.host}}</li>
+                    <li class="list-group-item"><strong>Participants:</strong> {{pod.participants}}</li>
+                    <li class="list-group-item"><strong>Podcast Upload Date and Time:</strong> {{pod.timeupload}}</li>
+                </ul>
+            </div>
+            {% endfor %}
+        </h5>
+        </div>
+
+        {% elif aud_item_list %}
+        <h5>
+        <div class="d-flex p-2 flex-row flex-wrap bd-highlight">
+            {% for aud in aud_item_list %}
+            <div class="card mb-5">
+                <div class="card-header">
+                    Audiobook ID: {{aud.id}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Title: </strong>{{aud.title}}</li>
+                    <li class="list-group-item"><strong>File:</strong>
+                        <audio controls>
+                            <source src="{{aud.file.url}}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </li>
+                    <li class="list-group-item"><strong>Duration: </strong>{{aud.duration}}s</li>
+                    <li class="list-group-item"><strong>Author: </strong>{{aud.author}}</li>
+                    <li class="list-group-item"><strong>Narrator: </strong>{{aud.participants}}</li>
+                    <li class="list-group-item"><strong>Audiobook Upload Date and Time: </strong>{{aud.timeupload}}</li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        </h5>
+        {% endif %}
+        
+    </div>
+</h3>
 {% endblock body %}
