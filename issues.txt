@@ -1,0 +1,17 @@
+0.
+Clone the project, open the folder in VS-CODE, install ms-python extention.
+
+1.
+'pip install django' did not work.
+Threw this error : ERROR: Could not install packages due to an EnvironmentError: [WinError 2] The system cannot find the file specified: 'c:\\python38\\Scripts\\sqlformat.exe' 
+-> 'c:\\python38\\Scripts\\sqlformat.exe.deleteme'
+Solution : use 'pip install --user django' instead.
+
+2. On running python manage.py runserver, 
+ModuleNotFoundError: No module named 'mutagen'  & OSError: [WinError 123] The filename, directory name, or volume label syntax is incorrect: '<frozen importlib._bootstrap>'
+this error was thrown.
+solution, pip install --user mutagen
+
+
+
+
